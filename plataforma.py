@@ -1,4 +1,4 @@
-# from api.profesores_api import profesores_api
+from api.up_emprendedor_api import emprendedores_api
 # from api.cursos_api import cursos_api
 # from api.alumnos_api import alumnos_api
 # from api.inscripciones_api import inscripciones_api
@@ -20,7 +20,7 @@ import uvicorn
 app = FastAPI()
 
 # # Rutas endopoints
-# app.include_router(cursos_api)
+app.include_router(emprendedores_api)
 # app.include_router(profesores_api)
 # app.include_router(alumnos_api)
 # app.include_router(inscripciones_api)
