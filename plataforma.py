@@ -7,14 +7,14 @@ from api.up_emprendedor_api import emprendedores_api
 import database
 from fastapi import FastAPI
 import uvicorn
-# import models.cursos_bd
+import models.unidades_productivas.emprendedores_bd
 # import models.profesores_bd
 # import models.alumnos_bd
 # import models.inscripciones_bd
 # import models.asistencias_bd
 
-# # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
-# database.create_all()
+# Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
+database.create_all()
 
 # Crea servidor FastAPI
 app = FastAPI()

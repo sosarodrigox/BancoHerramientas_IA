@@ -1,35 +1,22 @@
 from datetime import date
-from models.unidades_productivas.emprendedores_api import Emprendedor
+from models.unidades_productivas.emprendedores_bd import EmprendedorBd
+from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import select
 
 # HardCode para probar la API sin buscar datos de la BD.
 
 
 class EmprendedoresRepository():
 
-    def get_all(self):
-        return [
-            Emprendedor(
-                id=1,
-                apellido='Perez',
-                nombre='Juan',
-                cuil='20-12345678-9',
-                genero='Masculino',
-                fecha_nacimiento=date(1990, 1, 1),
-                nivel_educativo='Secundario',
-                titulo_prof=None,
-                situacion_laboral='Desocupado',
-                saberes_experiencia='NO',
-                curso_formacion_prof='NO'),
-            Emprendedor(
-                id=2,
-                apellido='Gonzalez',
-                nombre='Maria',
-                cuil='27-12345678-9',
-                genero='Femenino',
-                fecha_nacimiento=date(1990, 1, 1),
-                nivel_educativo='Secundario',
-                titulo_prof='Técnico Radiólogo',
-                situacion_laboral='Desocupado',
-                saberes_experiencia='SI',
-                curso_formacion_prof='NO')
-        ]
+    def get_all(self, db: Session):
+        return db.execute(select(EmprendedorBd).order_by(EmprendedorBd.apellido)).scalars().all()
+
+    def get_by_id(self, id: int, db: Session):
+        return db.execute(select(EmprendedorBd).filter(EmprendedorBd.id == id)).scalars().first()
+
+    def create(self, emprendedor: EmprendedorBd, db: Session):
+        nuevo_emprendedor_bd: EmprendedorBd = EmprendedorBd(
+            **emprendedor.dict())
+        db.add(nuevo_emprendedor_bd)
+        db.commit()
+        return nuevo_emprendedor_bd
