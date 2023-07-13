@@ -1,5 +1,6 @@
 from api.up_emprendedor_api import emprendedores_api
-# from api.cursos_api import cursos_api
+from api.ubi_provincia_api import provincias_api
+from api.ubi_localidad_api import localidades_api
 # from api.alumnos_api import alumnos_api
 # from api.inscripciones_api import inscripciones_api
 # from api.asistencias_api import asistencias_api
@@ -7,8 +8,10 @@ from api.up_emprendedor_api import emprendedores_api
 import database
 from fastapi import FastAPI
 import uvicorn
+
 import models.unidades_productivas.emprendedores_bd
-# import models.profesores_bd
+import models.ubicaciones.localidades_bd
+import models.ubicaciones.provincias_bd
 # import models.alumnos_bd
 # import models.inscripciones_bd
 # import models.asistencias_bd
@@ -21,8 +24,8 @@ app = FastAPI()
 
 # # Rutas endopoints
 app.include_router(emprendedores_api)
-# app.include_router(profesores_api)
-# app.include_router(alumnos_api)
+app.include_router(provincias_api)
+app.include_router(localidades_api)
 # app.include_router(inscripciones_api)
 # app.include_router(asistencias_api)
 

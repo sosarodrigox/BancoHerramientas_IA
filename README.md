@@ -1,6 +1,5 @@
 # Plataforma Banco de Herramientas
 
-
 ## (Unidad Productiva) Emprendedores:
   * id
   * apellido
@@ -40,13 +39,22 @@
   * saberes_experiencia
   * curso_formacion_prof
 
-## Ubicaciones:
-  * domicilio
+## Domicilio:
+  * domicilio_calle
+  * domicilio_numero
   * barrio
   * municipio
-  * localidad
   * departamento
-  * provincia
+  * localidad_id
+
+## Localidades
+  * id
+  * nombre
+  * provincia_id
+
+## Provincias
+  * id
+  * nombre
 
 ## Proyecto
   * id
