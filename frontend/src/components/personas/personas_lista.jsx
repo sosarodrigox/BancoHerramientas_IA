@@ -19,6 +19,28 @@ export default function PersonasLista() {
         navegar("-1");
     };
 
+    const modificarPersona = (id) => {
+        navegar("" + id);
+    };
+
+    const asignarUnidadProductiva = (id) => {
+        navegar("unidad_productiva/" + id);
+    };
+
+    const eliminarPersona = async (id) => {
+        try {
+            const confirmarEliminar = window.confirm(
+                "¿Estás seguro de querer eliminar esta persona?"
+            );
+            if (confirmarEliminar) {
+                await axios.delete(`http://localhost:8000/personas/${id}`);
+                setPersonas(personas.filter((persona) => persona.id !== id));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
             <div className="Container-fluid">
@@ -37,6 +59,9 @@ export default function PersonasLista() {
                             <th>Situacion Laboral</th>
                             <th>Saberes/Experiencia</th>
                             <th>CFP</th>
+                            <th>Modificar</th>
+                            <th>Asignar UP</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +102,33 @@ export default function PersonasLista() {
                                     <td>
                                         {persona.curso_formacion_prof}
                                     </td>
+
+                                    <td>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => modificarPersona(persona.id)}
+                                        >
+                                            Modificar
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <button
+                                            className="btn btn-success"
+                                            onClick={() => asignarUnidadProductiva(persona.id)}
+                                        >
+                                            Asignar
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => eliminarPersona(persona.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </td>
+
                                 </tr>
                             ))
                         }

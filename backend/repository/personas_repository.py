@@ -12,7 +12,7 @@ class PersonasRepository():
     def get_by_id(self, id: int, db: Session):
         return db.execute(select(PersonaBd).filter(PersonaBd.id == id)).scalars().first()
 
-    def create(self, persona: PersonaBd, db: Session):
+    def create(self, persona: PersonaSinId, db: Session):
         nueva_persona_bd: PersonaBd = PersonaBd(
             **persona.dict())
         db.add(nueva_persona_bd)

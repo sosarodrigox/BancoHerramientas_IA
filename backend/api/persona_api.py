@@ -28,7 +28,7 @@ def get_by_id(id: int, db=Depends(get_db)):
     return persona
 
 
-@personas_api.post('', response_model=Persona)
+@personas_api.post('', response_model=Persona, status_code=201)
 def create(persona: PersonaSinId, db=Depends(get_db)):
     if len(persona.cuil) > 11:
         raise HTTPException(
@@ -36,7 +36,7 @@ def create(persona: PersonaSinId, db=Depends(get_db)):
     if not re.match(r'^\d+$', persona.cuil):
         raise HTTPException(
             status_code=400, detail='El CUIL solo puede tener caracteres numéricos sin puntos ni guiones')
-    return personas_repository.create(id, persona, db)
+    return personas_repository.create(persona, db)
 
 
 @personas_api.put('/{id}', response_model=Persona)
@@ -52,6 +52,7 @@ def put(id: int, persona: PersonaSinId, db=Depends(get_db)):
         raise HTTPException(
             status_code=404, detail='Persona no encontrada, no se puede modificar')
     return result
+
 
 @personas_api.delete('/{id}')
 def delete(id: int, db=Depends(get_db)):
