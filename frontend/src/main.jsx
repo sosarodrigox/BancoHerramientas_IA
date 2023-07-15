@@ -7,6 +7,7 @@ import Personas from './components/personas'
 import Proyectos from './components/proyectos'
 import EmprendedoresLista from './components/up_emprendedores/emprendedores_lista'
 import PersonasLista from './components/personas/personas_lista'
+import PersonaForm from './components/personas/persona_form'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<Home />}>
           <Route path="Personas" element={<Personas />}>
             <Route path='personas_lista' element={<PersonasLista />}></Route>
+            <Route path="personas_lista/:id" element={<PersonaForm />}></Route>
           </Route>
           <Route path="up" element={<UnidadesProductivas />}>
             <Route path='emprendedores' element={<EmprendedoresLista />}></Route>

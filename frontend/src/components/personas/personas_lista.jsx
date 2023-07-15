@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 export default function PersonasLista() {
-
     const [personas, setPersonas] = useState([])
+    const navegar = useNavigate();
 
     useEffect(() => {
         getPersonas()
@@ -14,6 +14,10 @@ export default function PersonasLista() {
         let resultado = await axios.get('http://localhost:8000/personas')
         setPersonas(resultado.data)
     }
+
+    const agregarPersona = () => {
+        navegar("-1");
+    };
 
     return (
         <>
@@ -78,7 +82,7 @@ export default function PersonasLista() {
                         }
                     </tbody>
                 </table>
-                <button className="btn btn-primary">Agregar persona</button>
+                <button className="btn btn-primary" onClick={agregarPersona}>Agregar persona</button>
             </div>
         </>)
 }
