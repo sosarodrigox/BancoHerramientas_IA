@@ -9,6 +9,7 @@ export default function Home() {
                     <NavLink to='/' className='navbar-brand'>Banco de Herramientas V1.0</NavLink>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav">
+                            <li className="nav-item"><NavLink to='personas' className='nav-link'>Personas</NavLink></li>
                             <li className="nav-item"><NavLink to='up' className='nav-link'>Unidades Productivas</NavLink></li>
                             <li className="nav-item"><NavLink to='proyectos' className='nav-link'>Proyectos</NavLink></li>
                         </ul>
