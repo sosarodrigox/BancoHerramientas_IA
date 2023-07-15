@@ -11,7 +11,7 @@ export default function PersonasLista() {
     }, [])
 
     const getPersonas = async () => {
-        let resultado = await axios.get('http://localhost:8000/emprendedores')
+        let resultado = await axios.get('http://localhost:8000/personas')
         setPersonas(resultado.data)
     }
 
