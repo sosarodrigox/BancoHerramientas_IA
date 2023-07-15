@@ -27,3 +27,11 @@ class PersonasRepository():
             setattr(persona, k, v)
         db.commit()
         return persona
+
+    def delete(self, id: int, db: Session):
+        persona: PersonaBd = self.get_by_id(id, db)
+        if persona is None:
+            return None
+        db.delete(persona)
+        db.commit()
+        return persona

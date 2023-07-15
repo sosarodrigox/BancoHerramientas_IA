@@ -52,3 +52,11 @@ def put(id: int, persona: PersonaSinId, db=Depends(get_db)):
         raise HTTPException(
             status_code=404, detail='Persona no encontrada, no se puede modificar')
     return result
+
+@personas_api.delete('/{id}')
+def delete(id: int, db=Depends(get_db)):
+    result = personas_repository.delete(id, db)
+    if result is None:
+        raise HTTPException(
+            status_code=404, detail='Persona no encontrada, no se puede eliminar')
+    return result
