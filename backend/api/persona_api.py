@@ -1,3 +1,4 @@
+import re
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
 from models.personas.personas_api import Persona, PersonaSinId
@@ -29,4 +30,25 @@ def get_by_id(id: int, db=Depends(get_db)):
 
 @personas_api.post('', response_model=Persona)
 def create(persona: PersonaSinId, db=Depends(get_db)):
-    return personas_repository.create(persona, db)
+    if len(persona.cuil) > 11:
+        raise HTTPException(
+            status_code=400, detail='El CUIL no puede tener más de 11 caracteres')
+    if not re.match(r'^\d+$', persona.cuil):
+        raise HTTPException(
+            status_code=400, detail='El CUIL solo puede tener caracteres numéricos sin puntos ni guiones')
+    return personas_repository.create(id, persona, db)
+
+
+@personas_api.put('/{id}', response_model=Persona)
+def put(id: int, persona: PersonaSinId, db=Depends(get_db)):
+    if len(persona.cuil) > 11:
+        raise HTTPException(
+            status_code=400, detail='El CUIL no puede tener más de 11 caracteres')
+    if not re.match(r'^\d+$', persona.cuil):
+        raise HTTPException(
+            status_code=400, detail='El CUIL solo puede tener caracteres numéricos sin puntos ni guiones')
+    result = personas_repository.modify(id, persona, db)
+    if result is None:
+        raise HTTPException(
+            status_code=404, detail='Persona no encontrada, no se puede modificar')
+    return result

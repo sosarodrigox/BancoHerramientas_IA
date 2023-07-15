@@ -1,3 +1,4 @@
+from models.personas.personas_api import PersonaSinId
 from models.personas.personas_bd import PersonaBd
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import select
@@ -17,3 +18,12 @@ class PersonasRepository():
         db.add(nueva_persona_bd)
         db.commit()
         return nueva_persona_bd
+
+    def modify(self, id: int, datos: PersonaSinId, db: Session):
+        persona: PersonaBd = self.get_by_id(id, db)
+        if persona is None:
+            return None
+        for k, v in datos.dict(exclude_unset=True).items():
+            setattr(persona, k, v)
+        db.commit()
+        return persona
