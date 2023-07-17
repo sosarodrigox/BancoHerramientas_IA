@@ -1,18 +1,9 @@
-from datetime import date
 from pydantic import BaseModel
+from models.personas.personas_api import Persona
 
 
 class EmprendedorSinId(BaseModel):
-    apellido: str
-    nombre: str
-    cuil: str
-    genero: str
-    fecha_nacimiento: date
-    nivel_educativo: str
-    titulo_prof: str = None
-    situacion_laboral: str
-    saberes_experiencia: str
-    curso_formacion_prof: str
+    persona_id: int
 
     class Config:
         orm_mode = True
@@ -20,3 +11,8 @@ class EmprendedorSinId(BaseModel):
 
 class Emprendedor(EmprendedorSinId):
     id: int
+
+
+class EmprendedorList(EmprendedorSinId):
+    id: int
+    persona: Persona

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
-from models.unidades_productivas.emprendedores_api import Emprendedor, EmprendedorSinId
+from models.unidades_productivas.emprendedores_api import Emprendedor, EmprendedorSinId, EmprendedorList
 from repository.emprendedores_repository import EmprendedoresRepository
 
 # Router:
@@ -13,12 +13,12 @@ emprendedores_repository = EmprendedoresRepository()
 # Endpoints:
 
 
-@emprendedores_api.get('', response_model=list[Emprendedor])
+@emprendedores_api.get('', response_model=list[EmprendedorList])
 def get_all(db=Depends(get_db)):
     return emprendedores_repository.get_all(db)
 
 
-@emprendedores_api.get('/{id}', response_model=Emprendedor)
+@emprendedores_api.get('/{id}', response_model=EmprendedorList)
 def get_by_id(id: int, db=Depends(get_db)):
     emprendedor = emprendedores_repository.get_by_id(id, db)
     if emprendedor is None:

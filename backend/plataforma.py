@@ -12,6 +12,8 @@ import models.unidades_productivas.emprendedores_bd
 import models.ubicaciones.localidades_bd
 import models.ubicaciones.provincias_bd
 import models.personas.personas_bd
+import models.unidades_productivas.unidades_productivas_bd
+import models.unidades_productivas.emprendedores_bd
 
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()

@@ -17,3 +17,15 @@ class PersonaBd(BaseBd):
     saberes_experiencia = Column(String(2), nullable=False, default="NO")
     curso_formacion_prof = Column(String(2), nullable=False, default="NO")
     # TODO: Relacion con la tabla ubicaciones
+
+    # Relaciones con otras tablas
+    emprendedor = relationship(
+        "EmprendedorBd", back_populates="persona", uselist=False)
+    # grupos = relationship("GrupoBd", back_populates="persona")
+    # cooperativas = relationship("CooperativaBd", back_populates="persona")
+    unidades_productivas = relationship(
+        "UnidadProductivaBd", back_populates="persona")
+
+    @property
+    def full_name(self):
+        return f"{self.apellido}_{self.nombre}"
