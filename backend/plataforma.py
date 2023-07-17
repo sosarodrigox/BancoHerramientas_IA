@@ -1,4 +1,5 @@
 from api.up_emprendedor_api import emprendedores_api
+from api.unidad_productiva_api import up_api as unidades_productivas_api
 from api.persona_api import personas_api
 from api.ubi_provincia_api import provincias_api
 from api.ubi_localidad_api import localidades_api
@@ -13,7 +14,7 @@ import models.ubicaciones.localidades_bd
 import models.ubicaciones.provincias_bd
 import models.personas.personas_bd
 import models.unidades_productivas.unidades_productivas_bd
-import models.unidades_productivas.emprendedores_bd
+import models.unidades_productivas.unidades_productivas_bd
 
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()
@@ -26,6 +27,7 @@ app.include_router(emprendedores_api)
 app.include_router(provincias_api)
 app.include_router(localidades_api)
 app.include_router(personas_api)
+app.include_router(unidades_productivas_api)
 
 app.add_middleware(
     CORSMiddleware,

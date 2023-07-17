@@ -1,0 +1,32 @@
+from fastapi import APIRouter, Depends, HTTPException
+from database import get_db
+from models.unidades_productivas.unidades_productivas_api import UnidadProductivaSinId, UnidadProductiva
+from repository.up_repository import UnidadesProductivasRepository
+
+# Router:
+up_api = APIRouter(
+    prefix='/up', tags=['Unidades Productivas'])
+
+# Repository:
+up_repository = UnidadesProductivasRepository()
+
+# Endpoints:
+
+
+@up_api.get('', response_model=list[UnidadProductiva])
+def get_all(db=Depends(get_db)):
+    return up_repository.get_all(db)
+
+
+@up_api.get('/{id}', response_model=UnidadProductiva)
+def get_by_id(id: int, db=Depends(get_db)):
+    up = up_repository.get_by_id(id, db)
+    if up is None:
+        raise HTTPException(
+            status_code=404, detail="Unidad Productiva no encontrada")
+    return up
+
+
+@up_api.post('', response_model=UnidadProductiva)
+def create(up: UnidadProductivaSinId, db=Depends(get_db)):
+    return up_repository.create(up, db)
