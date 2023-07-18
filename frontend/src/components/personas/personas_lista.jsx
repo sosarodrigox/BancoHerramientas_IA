@@ -24,7 +24,7 @@ export default function PersonasLista() {
     };
 
     const asignarUnidadProductiva = (id) => {
-        navegar("unidad_productiva/" + id);
+        navegar("up/" + id);
     };
 
     const eliminarPersona = async (id) => {
