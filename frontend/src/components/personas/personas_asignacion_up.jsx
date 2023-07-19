@@ -6,6 +6,7 @@ export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
     const [unidadProductiva, setUnidadProductiva] = useState({
+        persona_id: 0,
         denominacion_up: "",
         antiguedad_emprendimiento_meses: 0,
         antiguedad_emprendimiento_anios: 0,
@@ -68,6 +69,7 @@ export default function PersonaAsignacionUP() {
 
                 // Asigna la persona a la unidad productiva
                 unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
+                unidadProductiva.persona_id = persona.id;
                 await axios.post("http://localhost:8000/up", unidadProductiva);
             } else {
                 // Realiza la solicitud para crear o actualizar la unidad productiva

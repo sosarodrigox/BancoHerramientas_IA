@@ -6,6 +6,7 @@ from database import BaseBd
 class UnidadProductivaBd(BaseBd):
     __tablename__ = 'unidades_productivas'
     id = Column(Integer, primary_key=True)
+    persona_id = Column(Integer, ForeignKey('personas.id'))
     denominacion_up = Column(String(250), nullable=False)
     antiguedad_emprendimiento_meses = Column(Integer, nullable=False)
     antiguedad_emprendimiento_anios = Column(Integer, nullable=False)
@@ -15,5 +16,4 @@ class UnidadProductivaBd(BaseBd):
     servicios_productos = Column(String(1024), nullable=False)
     cantidad_integrantes = Column(Integer, default=0)
 
-    persona_id = Column(Integer, ForeignKey('personas.id'))
     persona = relationship("PersonaBd", back_populates="unidades_productivas")

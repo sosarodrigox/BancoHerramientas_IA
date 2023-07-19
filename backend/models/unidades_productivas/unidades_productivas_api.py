@@ -1,8 +1,9 @@
 from pydantic import BaseModel
-from typing import Optional
+from models.personas.personas_api import Persona
 
 
 class UnidadProductivaSinId(BaseModel):
+    persona_id: int
     denominacion_up: str
     antiguedad_emprendimiento_meses: int
     antiguedad_emprendimiento_anios: int
@@ -11,6 +12,7 @@ class UnidadProductivaSinId(BaseModel):
     comercializacion_descripcion: str
     servicios_productos: str
     cantidad_integrantes: int = 0
+
     # TODO: Verificar valor default de cantidad de integrantes
 
     class Config:
@@ -19,3 +21,9 @@ class UnidadProductivaSinId(BaseModel):
 
 class UnidadProductiva(UnidadProductivaSinId):
     id: int
+    persona: Persona
+
+
+class UnidadProductivaList(UnidadProductivaSinId):
+    id: int
+    persona: Persona
