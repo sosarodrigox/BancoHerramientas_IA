@@ -59,6 +59,7 @@ export default function PersonasLista() {
                             <th>Situacion Laboral</th>
                             <th>Saberes/Experiencia</th>
                             <th>CFP</th>
+                            <th>Estado</th>
                             <th>Modificar</th>
                             <th>Asignar UP</th>
                             <th>Eliminar</th>
@@ -101,6 +102,9 @@ export default function PersonasLista() {
                                     </td>
                                     <td>
                                         {persona.curso_formacion_prof}
+                                    </td>
+                                    <td>
+                                        {persona.rol}
                                     </td>
 
                                     <td>

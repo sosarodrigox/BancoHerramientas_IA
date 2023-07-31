@@ -1,4 +1,5 @@
 import re
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
 from models.personas.personas_api import Persona, PersonaSinId
@@ -11,10 +12,11 @@ personas_api = APIRouter(
 # Repository:
 personas_repository = PersonasRepository()
 
+
 # Endpoints:
 
 
-@personas_api.get('', response_model=list[Persona])
+@personas_api.get('', response_model=List[Persona])
 def get_all(db=Depends(get_db)):
     return personas_repository.get_all(db)
 

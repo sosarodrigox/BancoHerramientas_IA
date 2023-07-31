@@ -1,9 +1,7 @@
 from models.unidades_productivas.emprendedores_api import EmprendedorSinId
 from models.unidades_productivas.emprendedores_bd import EmprendedorBd
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.expression import select
-
-# HardCode para probar la API sin buscar datos de la BD.
+from sqlalchemy import select
 
 
 class EmprendedoresRepository():

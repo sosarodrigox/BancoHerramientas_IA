@@ -19,6 +19,7 @@ export default function PersonaForm() {
         situacion_laboral: "",
         saberes_experiencia: "",
         curso_formacion_prof: "",
+        rol: ""
     }
 
     useEffect(() => {
@@ -49,11 +50,13 @@ export default function PersonaForm() {
     const grabarCambios = async () => {
         try {
             if (datos.id == -1) {
+                datos.rol = "no asignado";
                 let resultado = await axios.post(`http://localhost:8000/personas/`, datos);
                 console.log(resultado);
                 alert("Persona cargada con éxito");
             } else {
                 let resultado = await axios.put(`http://localhost:8000/personas/${datos.id}`, datos);
+                console.log(resultado);
                 alert("Persona modificado con éxito");
             }
             navegar(-1);

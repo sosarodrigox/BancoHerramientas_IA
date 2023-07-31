@@ -13,6 +13,7 @@ class PersonaSinId(BaseModel):
     situacion_laboral: str
     saberes_experiencia: str
     curso_formacion_prof: str
+    rol: str
 
     class Config:
         orm_mode = True

@@ -20,6 +20,12 @@ export default function PersonaAsignacionUP() {
     const params = useParams();
     const navegar = useNavigate();
 
+    // Estados para manejar los valores del rango y del cuadro de texto
+    const [rangoAnios, setRangoAnios] = useState(unidadProductiva.antiguedad_emprendimiento_anios);
+    const [inputAnios, setInputAnios] = useState(unidadProductiva.antiguedad_emprendimiento_anios);
+    const [rangoMeses, setRangoMeses] = useState(unidadProductiva.antiguedad_emprendimiento_meses);
+    const [inputMeses, setInputMeses] = useState(unidadProductiva.antiguedad_emprendimiento_meses);
+
     useEffect(() => {
         getPersona(params.id);
     }, [params.id]);
@@ -39,7 +45,6 @@ export default function PersonaAsignacionUP() {
         // TODO: Habilitar solo si se selecciona emprendimiento individual
 
         // Realiza cualquier acción adicional según el tipo de unidad productiva seleccionado
-
     };
 
     const handleFormChange = (event) => {
@@ -49,6 +54,92 @@ export default function PersonaAsignacionUP() {
             [name]: value,
         }));
     };
+
+    // Función para sincronizar los cambios en el cuadro de texto de años
+    const handleAniosInputChange = (event) => {
+        const { value } = event.target;
+        setInputAnios(value);
+        if (value === "") {
+            // Si el cuadro de texto está vacío, establecemos el valor a 0
+            setRangoAnios(0);
+        } else {
+            // Convertimos el valor a un número entero y lo actualizamos en el rango
+            setRangoAnios(parseInt(value));
+        }
+    };
+
+    // Función para ajustar el rango si el usuario termina de modificar el cuadro de texto
+    const handleAniosInputBlur = () => {
+        if (inputAnios === "") {
+            // Si el cuadro de texto está vacío, establecemos el valor a 0
+            setInputAnios("0");
+            setRangoAnios(0);
+        } else {
+            // Convertimos el valor a un número entero
+            const intValue = parseInt(inputAnios);
+            // Si el valor está fuera de los límites, ajustamos al límite más cercano
+            if (intValue < 0) {
+                setInputAnios("0");
+                setRangoAnios(0);
+            } else if (intValue > 80) {
+                setInputAnios("80");
+                setRangoAnios(80);
+            } else {
+                // Si el valor es válido, actualizamos ambos estados
+                setInputAnios(String(intValue));
+                setRangoAnios(intValue);
+            }
+        }
+    };
+
+    const handleRangoAniosChange = (event) => {
+        const { value } = event.target;
+        setRangoAnios(value);
+        setInputAnios(value);
+    };
+
+    // Dentro de la función del componente
+    const handleMesesInputChange = (event) => {
+        const { value } = event.target;
+        setInputMeses(value);
+        if (value === "") {
+            // Si el cuadro de texto está vacío, establecemos el valor a 0
+            setRangoMeses(0);
+        } else {
+            // Convertimos el valor a un número entero y lo actualizamos en el rango
+            setRangoMeses(parseInt(value));
+        }
+    };
+
+    const handleMesesInputBlur = () => {
+        if (inputMeses === "") {
+            // Si el cuadro de texto está vacío, establecemos el valor a 0
+            setInputMeses("0");
+            setRangoMeses(0);
+        } else {
+            // Convertimos el valor a un número entero
+            const intValue = parseInt(inputMeses);
+            // Si el valor está fuera de los límites, ajustamos al límite más cercano
+            if (intValue < 0) {
+                setInputMeses("0");
+                setRangoMeses(0);
+            } else if (intValue > 12) {
+                setInputMeses("12");
+                setRangoMeses(12);
+            } else {
+                // Si el valor es válido, actualizamos ambos estados
+                setInputMeses(String(intValue));
+                setRangoMeses(intValue);
+            }
+        }
+    };
+
+    const handleRangoMesesChange = (event) => {
+        const { value } = event.target;
+        setRangoMeses(value);
+        setInputMeses(value);
+    };
+
 
     const grabarCambios = async () => {
         // Verifica si el tipo de unidad productiva está seleccionado
@@ -71,18 +162,22 @@ export default function PersonaAsignacionUP() {
                 unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
                 unidadProductiva.persona_id = persona.id;
                 await axios.post("http://localhost:8000/up", unidadProductiva);
+
+                // Asigna a la persona el rol de emprendedor
+                persona.rol = "emprendedor"
+                let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`, persona);
+                console.log(resultado);
             } else {
                 // Realiza la solicitud para crear o actualizar la unidad productiva
                 await axios.post("http://localhost:8000/up", unidadProductiva);
             }
 
-            alert("Unidad productiva asignada con éxito");
+            alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: UP_${persona.apellido}_${persona.cuil}.`);
             navegar(-1);
         } catch (error) {
             alert(error.response.data.detail);
         }
     };
-
 
     return (
         <div className="text-start col-6 offset-3 border p-3">
@@ -119,31 +214,55 @@ export default function PersonaAsignacionUP() {
                         />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Antigüedad del emprendimiento (años):</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            name="antiguedad_emprendimiento_anios"
-                            value={unidadProductiva.antiguedad_emprendimiento_anios}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Antigüedad del emprendimiento (meses):</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            name="antiguedad_emprendimiento_meses"
-                            value={unidadProductiva.antiguedad_emprendimiento_meses}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <div className="form-check">
+                        <label className="form-label">
+                            Antigüedad del emprendimiento (años):
                             <input
-                                className="form-check-input"
+                                type="text"
+                                className="form-control"
+                                value={inputAnios}
+                                onChange={handleAniosInputChange}
+                                onBlur={handleAniosInputBlur}
+                            />
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="antiguedad_emprendimiento_anios"
+                            min="0"
+                            max="80"
+                            value={rangoAnios}
+                            onChange={handleRangoAniosChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">
+                            Antigüedad del emprendimiento (meses):
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={inputMeses}
+                                onChange={handleMesesInputChange}
+                                onBlur={handleMesesInputBlur}
+                            />
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="antiguedad_emprendimiento_meses"
+                            min="0"
+                            max="12"
+                            value={rangoMeses}
+                            onChange={handleRangoMesesChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <div class="form-check form-switch">
+                            <input
+                                class="form-check-input"
                                 type="checkbox"
                                 name="emprendimiento_formalizado"
+                                role="switch"
+                                id="flexSwitchCheckChecked"
                                 checked={unidadProductiva.emprendimiento_formalizado}
                                 onChange={() =>
                                     setUnidadProductiva((prevState) => ({
@@ -152,15 +271,19 @@ export default function PersonaAsignacionUP() {
                                     }))
                                 }
                             />
-                            <label className="form-check-label">Emprendimiento formalizado</label>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                Emprendimiento formalizado
+                            </label>
                         </div>
                     </div>
                     <div className="mb-3">
-                        <div className="form-check">
+                        <div class="form-check form-switch">
                             <input
-                                className="form-check-input"
+                                class="form-check-input"
                                 type="checkbox"
                                 name="emprendimiento_activo"
+                                role="switch"
+                                id="flexSwitchCheckChecked"
                                 checked={unidadProductiva.emprendimiento_activo}
                                 onChange={() =>
                                     setUnidadProductiva((prevState) => ({
@@ -169,7 +292,9 @@ export default function PersonaAsignacionUP() {
                                     }))
                                 }
                             />
-                            <label className="form-check-label">Emprendimiento activo</label>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                Emprendimiento activo
+                            </label>
                         </div>
                     </div>
                     <div className="mb-3">
