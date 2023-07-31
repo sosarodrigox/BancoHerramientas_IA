@@ -26,18 +26,8 @@ class PersonaBd(BaseBd):
     emprendedor = relationship(
         "EmprendedorBd", back_populates="persona", uselist=False)
     # Grupos:
-    # grupo_id = Column(Integer, ForeignKey('grupos.id', ondelete='SET NULL'))
-    # # Relación con GrupoBd como representante
-    # grupo_representante = relationship("GrupoBd", back_populates="representante_grupo", uselist=False, foreign_keys=[
-    #                                    GrupoBd.representante_grupo_id])
-    # # Relación con GrupoBd como integrante
     grupo = relationship(
         "IntegranteBd", cascade="all, delete", passive_deletes=True, back_populates='persona')
-
-    # grupo_representante = relationship("GrupoBd", foreign_keys=[
-    #     GrupoBd.representante_grupo_id], back_populates="representante_grupo", uselist=False)
-    # grupo = relationship(
-    #     "GrupoBd", cascade="all, delete", passive_deletes=True, back_populates='integrantes')
 
     # # Cooperativas:
     # cooperativa_presidente = relationship(

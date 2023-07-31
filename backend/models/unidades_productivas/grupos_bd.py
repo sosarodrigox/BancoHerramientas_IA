@@ -11,16 +11,6 @@ class GrupoBd(BaseBd):
     representante_grupo_id = Column(Integer, ForeignKey(
         'personas.id', ondelete='SET NULL'), unique=True)
 
-    # # Relación con PersonaBd como representante
-    # representante_grupo = relationship(
-    #     "PersonaBd", back_populates="grupo_representante", uselist=False, foreign_keys=[representante_grupo_id])
-
     # Relación con integrantes
     integrantes = relationship(
         "IntegranteBd", cascade="all, delete", back_populates='grupo')
-
-    # representante_grupo = relationship("PersonaBd", foreign_keys=[
-    #     representante_grupo_id], back_populates="grupo_representante")
-
-    # integrantes = relationship(
-    #     "PersonaBd", cascade="all, delete", back_populates='grupo')
