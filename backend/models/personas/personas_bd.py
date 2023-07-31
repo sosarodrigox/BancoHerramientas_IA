@@ -26,6 +26,12 @@ class PersonaBd(BaseBd):
     emprendedor = relationship(
         "EmprendedorBd", back_populates="persona", uselist=False)
     # Grupos:
+
+    # # Relación con GrupoBd como representante
+    # grupo_representante = relationship("GrupoBd", back_populates="representante_grupo", uselist=False, foreign_keys=[
+    #                                    GrupoBd.representante_grupo_id])
+
+    # Relación con IntegrantesBd como integrante
     grupo = relationship(
         "IntegranteBd", cascade="all, delete", passive_deletes=True, back_populates='persona')
 

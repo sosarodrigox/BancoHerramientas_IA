@@ -17,7 +17,7 @@ class Grupo(GrupoSinId):
 
 class GrupoList(GrupoSinId):
     id: int
-    representante_grupo: Persona
+    representante_grupo_id: int
 
 
 class CreateGrupoNuevoIntegrante(BaseModel):
@@ -29,4 +29,4 @@ class CreateGrupoNuevoIntegrante(BaseModel):
 
 
 class GrupoNuevoIntegrante(CreateGrupoNuevoIntegrante):
-    nuevo_integrante: Persona
+    id_nuevo_integrante: int
