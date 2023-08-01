@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import EmprendimientoIndividual from "./emprendimiento_individual_up";
+import GrupoAsociativo from "./grupo_asociativo_up";
+import Cooperativa from "./cooperativa_up";
 
 export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
@@ -200,10 +203,19 @@ export default function PersonaAsignacionUP() {
                 </select>
             </div>
 
+            {/* Mostrar el componente correspondiente según el tipo de unidad productiva seleccionado */}
+            {tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" && (
+                <EmprendimientoIndividual persona={persona} />
+            )}
+
+            {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && <GrupoAsociativo />}
+
+            {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
+
             {/* Mostrar el formulario solo si se ha seleccionado un tipo de unidad productiva */}
             {tipoUnidadProductiva && (
                 <div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label className="form-label">Denominación UP:</label>
                         <input
                             type="text"
@@ -212,7 +224,7 @@ export default function PersonaAsignacionUP() {
                             value={`UP_${persona.apellido}_${persona.cuil}`}
                             readOnly
                         />
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <label className="form-label">
                             Antigüedad del emprendimiento (años):
