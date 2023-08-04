@@ -4,10 +4,16 @@ import axios from "axios";
 import EmprendimientoIndividual from "./emprendimiento_individual_up";
 import GrupoAsociativo from "./grupo_asociativo_up";
 import Cooperativa from "./cooperativa_up";
+import Formulario_UP from "./formulario_up";
 
 export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
+
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
+
+
     const [unidadProductiva, setUnidadProductiva] = useState({
         persona_id: 0,
         denominacion_up: "",
@@ -208,131 +214,34 @@ export default function PersonaAsignacionUP() {
                 <EmprendimientoIndividual persona={persona} />
             )}
 
-            {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && <GrupoAsociativo />}
+            {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
+                <GrupoAsociativo setGrupoAsociativoCreado={setGrupoAsociativoCreado} />
+            )}
 
             {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
 
             {/* Mostrar el formulario solo si se ha seleccionado un tipo de unidad productiva */}
-            {tipoUnidadProductiva && (
-                <div>
-                    {/* <div className="mb-3">
-                        <label className="form-label">Denominación UP:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="denominacion_up"
-                            value={`UP_${persona.apellido}_${persona.cuil}`}
-                            readOnly
-                        />
-                    </div> */}
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Antigüedad del emprendimiento (años):
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={inputAnios}
-                                onChange={handleAniosInputChange}
-                                onBlur={handleAniosInputBlur}
-                            />
-                        </label>
-                        <input
-                            type="range"
-                            className="form-range"
-                            name="antiguedad_emprendimiento_anios"
-                            min="0"
-                            max="80"
-                            value={rangoAnios}
-                            onChange={handleRangoAniosChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">
-                            Antigüedad del emprendimiento (meses):
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={inputMeses}
-                                onChange={handleMesesInputChange}
-                                onBlur={handleMesesInputBlur}
-                            />
-                        </label>
-                        <input
-                            type="range"
-                            className="form-range"
-                            name="antiguedad_emprendimiento_meses"
-                            min="0"
-                            max="12"
-                            value={rangoMeses}
-                            onChange={handleRangoMesesChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <div class="form-check form-switch">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                name="emprendimiento_formalizado"
-                                role="switch"
-                                id="flexSwitchCheckChecked"
-                                checked={unidadProductiva.emprendimiento_formalizado}
-                                onChange={() =>
-                                    setUnidadProductiva((prevState) => ({
-                                        ...prevState,
-                                        emprendimiento_formalizado: !prevState.emprendimiento_formalizado,
-                                    }))
-                                }
-                            />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">
-                                Emprendimiento formalizado
-                            </label>
-                        </div>
-                    </div>
-                    <div className="mb-3">
-                        <div class="form-check form-switch">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                name="emprendimiento_activo"
-                                role="switch"
-                                id="flexSwitchCheckChecked"
-                                checked={unidadProductiva.emprendimiento_activo}
-                                onChange={() =>
-                                    setUnidadProductiva((prevState) => ({
-                                        ...prevState,
-                                        emprendimiento_activo: !prevState.emprendimiento_activo,
-                                    }))
-                                }
-                            />
-                            <label class="form-check-label" for="flexSwitchCheckChecked">
-                                Emprendimiento activo
-                            </label>
-                        </div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Descripción de comercialización:</label>
-                        <textarea
-                            className="form-control"
-                            name="comercializacion_descripcion"
-                            rows={5}
-                            maxLength={1024}
-                            value={unidadProductiva.comercializacion_descripcion}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Servicios/Productos:</label>
-                        <textarea
-                            className="form-control"
-                            name="servicios_productos"
-                            rows={5}
-                            maxLength={1024}
-                            value={unidadProductiva.servicios_productos}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                </div>
-            )}
+            {tipoUnidadProductiva &&
+                (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" ||
+                    (tipoUnidadProductiva === "GRUPO ASOCIATIVO" && grupoAsociativoCreado)) && (
+                    <Formulario_UP
+                        inputAnios={inputAnios}
+                        handleAniosInputChange={handleAniosInputChange}
+                        handleAniosInputBlur={handleAniosInputBlur}
+                        rangoAnios={rangoAnios}
+                        handleRangoAniosChange={handleRangoAniosChange}
+                        inputMeses={inputMeses}
+                        handleMesesInputChange={handleMesesInputChange}
+                        handleMesesInputBlur={handleMesesInputBlur}
+                        rangoMeses={rangoMeses}
+                        handleRangoMesesChange={handleRangoMesesChange}
+                        unidadProductiva={unidadProductiva}
+                        handleFormChange={handleFormChange}
+                    />
+                )}
+
+
+
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>
