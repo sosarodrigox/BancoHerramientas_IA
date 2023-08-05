@@ -9,8 +9,6 @@ import Formulario_UP from "./formulario_up";
 export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
-
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
 
 
@@ -215,7 +213,10 @@ export default function PersonaAsignacionUP() {
             )}
 
             {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
-                <GrupoAsociativo setGrupoAsociativoCreado={setGrupoAsociativoCreado} />
+                <GrupoAsociativo
+                    setGrupoAsociativoCreado={setGrupoAsociativoCreado}
+                    persona={persona} // Pasar la variable persona al componente hijo
+                />
             )}
 
             {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
@@ -239,9 +240,6 @@ export default function PersonaAsignacionUP() {
                         handleFormChange={handleFormChange}
                     />
                 )}
-
-
-
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>

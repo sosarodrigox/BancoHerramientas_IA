@@ -1,18 +1,46 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 
-export default function GrupoAsociativo({ setGrupoAsociativoCreado }) {
+export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
     const [grupos, setGrupos] = useState([]);
     const [grupoSeleccionado, setGrupoSeleccionado] = useState({});
+    const [asignarHabilitado, setAsignarHabilitado] = useState(false); // Nuevo estado
+    const navegar = useNavigate();
 
     useEffect(() => {
         getGrupos();
     }, []);
 
-    const crearGrupo = (representante_grupo_id) => {
+    useEffect(() => {
+        // Verifica si hay un grupo seleccionado para habilitar el botón "ASIGNAR A GRUPO"
+        setAsignarHabilitado(!!grupoSeleccionado.id);
+    }, [grupoSeleccionado]);
 
+    const crearGrupo = (representante_grupo_id) => {
         setGrupoAsociativoCreado(true);
+    };
+
+    const asignarGrupo = async () => {
+        try {
+            if (persona.rol !== "no asignado") {
+                alert("La persona ya tiene un rol asignado");
+            } else {
+                if (grupoSeleccionado.id === -1) {
+                    alert("Debe seleccionar un grupo");
+                }
+                let nuevoIntegrante = {
+                    "id_grupo": grupoSeleccionado.id,
+                    "id_nuevo_integrante": persona.id,
+                }
+                axios.post(`http://localhost:8000/grupos/nuevo`, nuevoIntegrante);
+
+                alert(`Mensaje: ${persona.apellido}, ${persona.nombre} a sido asignado/a como integrante del grupo: ${grupoSeleccionado.nombre_grupo}`);
+                navegar(-1);
+            }
+        } catch (error) {
+            alert(error.response.data.detail);
+        }
     };
 
     const getGrupos = async () => {
@@ -32,6 +60,10 @@ export default function GrupoAsociativo({ setGrupoAsociativoCreado }) {
             ...grupoSeleccionado,
             id: parseInt(e.target.value), // Convertir a entero
         });
+
+        if (e.target.value == -1) {
+            setGrupoSeleccionado({});
+        }
     };
 
     return (
@@ -53,7 +85,12 @@ export default function GrupoAsociativo({ setGrupoAsociativoCreado }) {
                     ))}
                 </select>
             </div>
-            <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button>
+            <div className="d-flex justify-content-between"> {/* Contenedor para botones */}
+                <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button>
+                <button className="btn btn-primary" onClick={asignarGrupo} disabled={!asignarHabilitado}>
+                    ASIGNAR A GRUPO
+                </button>
+            </div>
         </div>
     );
 }

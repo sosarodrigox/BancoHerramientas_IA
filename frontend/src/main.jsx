@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='personas_lista' element={<PersonasLista />}></Route>
             <Route path="personas_lista/:id" element={<PersonaForm />}></Route>
             <Route path="personas_lista/up/:id" element={<PersonaAsignacionUP />}></Route>
-            <Route path="personas_lista/up/:id/crea" element={<GrupoAsociativoForm />}></Route>
+            <Route path="personas_lista/up/:id/nuevo" element={<GrupoAsociativoForm />}></Route>
           </Route>
           <Route path="up" element={<UnidadesProductivas />}>
             <Route path='emprendedores' element={<EmprendedoresLista />}></Route>
