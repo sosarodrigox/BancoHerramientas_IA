@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function GrupoAsociativoForm() {
+export default function GrupoAsociativoForm({ persona }) {
     const [datos, setDatos] = useState({});
     const params = useParams();
     const navegar = useNavigate();
@@ -11,7 +11,7 @@ export default function GrupoAsociativoForm() {
     const grupo = {
         id: -1,
         nombre_grupo: "",
-        representante_grupo_id: params.representante_grupo_id,
+        representante_grupo_id: persona.id,
     }
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function GrupoAsociativoForm() {
 
     return (
         <div className="text-start col-6 offset-3 border p-3">
-            <h2 className="mt-3 text-center">Datos de la persona</h2>
+            <h2 className="mt-3 text-center">Datos del grupo</h2>
             <div className="mb-3 col-2">
                 <label htmlFor="edId" className="form-label">
                     ID
