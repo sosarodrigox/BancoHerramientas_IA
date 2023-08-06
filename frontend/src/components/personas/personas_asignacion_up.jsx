@@ -223,8 +223,7 @@ export default function PersonaAsignacionUP() {
 
             {/* Mostrar el formulario solo si se ha seleccionado un tipo de unidad productiva */}
             {tipoUnidadProductiva &&
-                (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" ||
-                    (tipoUnidadProductiva === "GRUPO ASOCIATIVO" && grupoAsociativoCreado)) && (
+                (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") && (
                     <Formulario_UP
                         inputAnios={inputAnios}
                         handleAniosInputChange={handleAniosInputChange}

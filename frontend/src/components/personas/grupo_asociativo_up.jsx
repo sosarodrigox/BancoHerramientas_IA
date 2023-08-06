@@ -17,9 +17,12 @@ export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
         setAsignarHabilitado(!!grupoSeleccionado.id);
     }, [grupoSeleccionado]);
 
-    const crearGrupo = (persona) => {
+    const crearGrupo = () => {
+        //http://localhost:5173/personas/personas_lista/up/4/-1
         setGrupoAsociativoCreado(true);
-        navegar("-1");
+        navegar("-1", { state: { persona } });
+        // setGrupoAsociativoCreado(true);
+        // navegar("-1");
     };
 
     const asignarGrupo = async () => {
