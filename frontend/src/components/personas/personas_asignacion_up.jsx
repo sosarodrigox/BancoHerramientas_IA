@@ -155,34 +155,39 @@ export default function PersonaAsignacionUP() {
             return;
         }
 
-        // Agrega el tipo de unidad productiva al objeto unidad productiva
-        unidadProductiva.persona_id = persona.id;
+        if (persona.rol !== "no asignado") {
+            alert("La persona ya tiene asignada una unidad productiva");
+            return;
+        } else {
+            // Agrega el tipo de unidad productiva al objeto unidad productiva
+            unidadProductiva.persona_id = persona.id;
 
-        try {
-            if (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") {
-                // Crea el emprendedor asignado a la persona
-                await axios.post("http://localhost:8000/emprendedores", {
-                    persona_id: persona.id,
-                });
+            try {
+                if (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") {
+                    // Crea el emprendedor asignado a la persona
+                    await axios.post("http://localhost:8000/emprendedores", {
+                        persona_id: persona.id,
+                    });
 
-                // Asigna la persona a la unidad productiva
-                unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
-                unidadProductiva.persona_id = persona.id;
-                await axios.post("http://localhost:8000/up", unidadProductiva);
+                    // Asigna la persona a la unidad productiva
+                    unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
+                    unidadProductiva.persona_id = persona.id;
+                    await axios.post("http://localhost:8000/up", unidadProductiva);
 
-                // Asigna a la persona el rol de emprendedor
-                persona.rol = "emprendedor"
-                let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`, persona);
-                console.log(resultado);
-            } else {
-                // Realiza la solicitud para crear o actualizar la unidad productiva
-                await axios.post("http://localhost:8000/up", unidadProductiva);
+                    // Asigna a la persona el rol de emprendedor
+                    persona.rol = "emprendedor"
+                    let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`, persona);
+                    console.log(resultado);
+                } else {
+                    // Realiza la solicitud para crear o actualizar la unidad productiva
+                    await axios.post("http://localhost:8000/up", unidadProductiva);
+                }
+
+                alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: UP_${persona.apellido}_${persona.cuil}.`);
+                navegar(-1);
+            } catch (error) {
+                console(error.response.data.detail);
             }
-
-            alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: UP_${persona.apellido}_${persona.cuil}.`);
-            navegar(-1);
-        } catch (error) {
-            alert(error.response.data.detail);
         }
     };
 

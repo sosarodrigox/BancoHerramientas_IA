@@ -16,6 +16,15 @@ export default function Formulario_UP({
     // unidadProductiva,
     // handleFormChange,
 }) {
+
+    const handleFormChange = (event) => {
+        const { name, value } = event.target;
+        setUnidadProductiva((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     const handleAniosInputChange = (event) => {
         const { value } = event.target;
         if (value === "") {
@@ -125,13 +134,73 @@ export default function Formulario_UP({
                 />
             </div>
             <div className="mb-3">
-                <div className="form-check form-switch">
-                    {/* ...otros campos... */}
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="emprendimiento_formalizado"
+                        role="switch"
+                        id="flexSwitchCheckChecked"
+                        checked={unidadProductiva.emprendimiento_formalizado}
+                        onChange={() =>
+                            setUnidadProductiva((prevState) => ({
+                                ...prevState,
+                                emprendimiento_formalizado: !prevState.emprendimiento_formalizado,
+                            }))
+                        }
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckChecked">
+                        Emprendimiento formalizado
+                    </label>
                 </div>
             </div>
-            {/* ...otros campos... */}
+            <div className="mb-3">
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="emprendimiento_activo"
+                        role="switch"
+                        id="flexSwitchCheckChecked"
+                        checked={unidadProductiva.emprendimiento_activo}
+                        onChange={() =>
+                            setUnidadProductiva((prevState) => ({
+                                ...prevState,
+                                emprendimiento_activo: !prevState.emprendimiento_activo,
+                            }))
+                        }
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckChecked">
+                        Emprendimiento activo
+                    </label>
+                </div>
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Descripción de comercialización:</label>
+                <textarea
+                    className="form-control"
+                    name="comercializacion_descripcion"
+                    rows={5}
+                    maxLength={1024}
+                    value={unidadProductiva.comercializacion_descripcion}
+                    onChange={handleFormChange}
+                />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Servicios/Productos:</label>
+                <textarea
+                    className="form-control"
+                    name="servicios_productos"
+                    rows={5}
+                    maxLength={1024}
+                    value={unidadProductiva.servicios_productos}
+                    onChange={handleFormChange}
+                />
+            </div>
         </div>
     );
+
+
     // return (
     //     <div>
     //         <div className="mb-3">
@@ -176,7 +245,7 @@ export default function Formulario_UP({
     //                 onChange={handleRangoMesesChange}
     //             />
     //         </div>
-    //         <div className="mb-3">
+    //         {/* <div className="mb-3">
     //             <div class="form-check form-switch">
     //                 <input
     //                     class="form-check-input"
@@ -196,7 +265,7 @@ export default function Formulario_UP({
     //                     Emprendimiento formalizado
     //                 </label>
     //             </div>
-    //         </div>
+    //         </div> */}
     //         <div className="mb-3">
     //             <div class="form-check form-switch">
     //                 <input
@@ -242,4 +311,8 @@ export default function Formulario_UP({
     //         </div>
     //     </div>
     // );
+
+
+
+
 }
