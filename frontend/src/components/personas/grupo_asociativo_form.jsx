@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+import Formulario_UP from "./formulario_up";
 
 export default function GrupoAsociativoForm() {
     const [grupo, setGrupo] = useState({});
+    const [unidadProductiva, setUnidadProductiva] = useState({
+        persona_id: 0,
+        denominacion_up: "",
+        antiguedad_emprendimiento_meses: 0,
+        antiguedad_emprendimiento_anios: 0,
+        emprendimiento_formalizado: false,
+        emprendimiento_activo: true,
+        comercializacion_descripcion: "",
+        servicios_productos: "",
+        cantidad_integrantes: 0,
+    });
+
+
     const params = useParams();
     const navegar = useNavigate();
     const location = useLocation();
@@ -129,12 +143,10 @@ export default function GrupoAsociativoForm() {
                 />
             </div>
 
-
-            {/* <Formulario_UP
+            <Formulario_UP
                 unidadProductiva={unidadProductiva}
-                setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
-            /> */}
-
+                setUnidadProductiva={setUnidadProductiva}
+            />
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>
