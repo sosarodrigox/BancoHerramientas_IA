@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
-import Formulario_UP from "./formulario_up";
 
 export default function GrupoAsociativoForm() {
     const [grupo, setGrupo] = useState({});
@@ -69,7 +68,8 @@ export default function GrupoAsociativoForm() {
 
     return (
         <div className="text-start col-6 offset-3 border p-3">
-            <h2 className="mt-3 text-center">Datos del grupo</h2>
+            <h4 className="mt-3 text-center">Datos del Grupo</h4>
+
             <div className="mb-3 col-2">
                 <label htmlFor="edId" className="form-label">
                     ID GRUPO
@@ -100,8 +100,6 @@ export default function GrupoAsociativoForm() {
                 />
             </div>
 
-
-
             <div className="mb-3 col-2">
                 <label htmlFor="edRepresentante" className="form-label">
                     Representante del grupo
@@ -111,7 +109,6 @@ export default function GrupoAsociativoForm() {
                     className="form-control"
                     id="edRepresentante"
                     name="representante"
-                    // value={grupo.representante_grupo_id}
                     value={location.state.persona.apellido + ", " + location.state.persona.nombre}
                     onChange={handleChange}
                     disabled
@@ -132,20 +129,12 @@ export default function GrupoAsociativoForm() {
                 />
             </div>
 
+
             {/* <Formulario_UP
-                inputAnios={inputAnios}
-                handleAniosInputChange={handleAniosInputChange}
-                handleAniosInputBlur={handleAniosInputBlur}
-                rangoAnios={rangoAnios}
-                handleRangoAniosChange={handleRangoAniosChange}
-                inputMeses={inputMeses}
-                handleMesesInputChange={handleMesesInputChange}
-                handleMesesInputBlur={handleMesesInputBlur}
-                rangoMeses={rangoMeses}
-                handleRangoMesesChange={handleRangoMesesChange}
                 unidadProductiva={unidadProductiva}
-                handleFormChange={handleFormChange}
+                setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
             /> */}
+
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>

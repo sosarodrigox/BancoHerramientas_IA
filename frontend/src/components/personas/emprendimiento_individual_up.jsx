@@ -5,7 +5,7 @@ import axios from "axios";
 export default function EmprendimientoIndividual({ persona }) {
     return (
         <div>
-            <h3>EMPRENDIMIENTO INDIVIDUAL</h3>
+            <h4 className="mt-3 text-center">EMPRENDIMIENTO INDIVIDUAL</h4>
             <div className="mb-3">
                 <label className="form-label">Denominación UP:</label>
                 <input
@@ -13,7 +13,7 @@ export default function EmprendimientoIndividual({ persona }) {
                     className="form-control"
                     name="denominacion_up"
                     value={`UP_${persona.apellido}_${persona.cuil}`}
-                    readOnly
+                    disabled
                 />
             </div>
         </div>

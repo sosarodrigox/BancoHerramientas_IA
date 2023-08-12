@@ -9,7 +9,7 @@ import Formulario_UP from "./formulario_up";
 export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
-    const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
+    // const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
 
 
     const [unidadProductiva, setUnidadProductiva] = useState({
@@ -26,12 +26,6 @@ export default function PersonaAsignacionUP() {
 
     const params = useParams();
     const navegar = useNavigate();
-
-    // // Estados para manejar los valores del rango y del cuadro de texto
-    // const [rangoAnios, setRangoAnios] = useState(unidadProductiva.antiguedad_emprendimiento_anios);
-    // const [inputAnios, setInputAnios] = useState(unidadProductiva.antiguedad_emprendimiento_anios);
-    // const [rangoMeses, setRangoMeses] = useState(unidadProductiva.antiguedad_emprendimiento_meses);
-    // const [inputMeses, setInputMeses] = useState(unidadProductiva.antiguedad_emprendimiento_meses);
 
     useEffect(() => {
         getPersona(params.id);
@@ -53,100 +47,6 @@ export default function PersonaAsignacionUP() {
 
         // Realiza cualquier acción adicional según el tipo de unidad productiva seleccionado
     };
-
-    // const handleFormChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setUnidadProductiva((prevState) => ({
-    //         ...prevState,
-    //         [name]: value,
-    //     }));
-    // };
-
-    // // Función para sincronizar los cambios en el cuadro de texto de años
-    // const handleAniosInputChange = (event) => {
-    //     const { value } = event.target;
-    //     setInputAnios(value);
-    //     if (value === "") {
-    //         // Si el cuadro de texto está vacío, establecemos el valor a 0
-    //         setRangoAnios(0);
-    //     } else {
-    //         // Convertimos el valor a un número entero y lo actualizamos en el rango
-    //         setRangoAnios(parseInt(value));
-    //     }
-    // };
-
-    // // Función para ajustar el rango si el usuario termina de modificar el cuadro de texto
-    // const handleAniosInputBlur = () => {
-    //     if (inputAnios === "") {
-    //         // Si el cuadro de texto está vacío, establecemos el valor a 0
-    //         setInputAnios("0");
-    //         setRangoAnios(0);
-    //     } else {
-    //         // Convertimos el valor a un número entero
-    //         const intValue = parseInt(inputAnios);
-    //         // Si el valor está fuera de los límites, ajustamos al límite más cercano
-    //         if (intValue < 0) {
-    //             setInputAnios("0");
-    //             setRangoAnios(0);
-    //         } else if (intValue > 80) {
-    //             setInputAnios("80");
-    //             setRangoAnios(80);
-    //         } else {
-    //             // Si el valor es válido, actualizamos ambos estados
-    //             setInputAnios(String(intValue));
-    //             setRangoAnios(intValue);
-    //         }
-    //     }
-    // };
-
-    // const handleRangoAniosChange = (event) => {
-    //     const { value } = event.target;
-    //     setRangoAnios(value);
-    //     setInputAnios(value);
-    // };
-
-    // // Dentro de la función del componente
-    // const handleMesesInputChange = (event) => {
-    //     const { value } = event.target;
-    //     setInputMeses(value);
-    //     if (value === "") {
-    //         // Si el cuadro de texto está vacío, establecemos el valor a 0
-    //         setRangoMeses(0);
-    //     } else {
-    //         // Convertimos el valor a un número entero y lo actualizamos en el rango
-    //         setRangoMeses(parseInt(value));
-    //     }
-    // };
-
-    // const handleMesesInputBlur = () => {
-    //     if (inputMeses === "") {
-    //         // Si el cuadro de texto está vacío, establecemos el valor a 0
-    //         setInputMeses("0");
-    //         setRangoMeses(0);
-    //     } else {
-    //         // Convertimos el valor a un número entero
-    //         const intValue = parseInt(inputMeses);
-    //         // Si el valor está fuera de los límites, ajustamos al límite más cercano
-    //         if (intValue < 0) {
-    //             setInputMeses("0");
-    //             setRangoMeses(0);
-    //         } else if (intValue > 12) {
-    //             setInputMeses("12");
-    //             setRangoMeses(12);
-    //         } else {
-    //             // Si el valor es válido, actualizamos ambos estados
-    //             setInputMeses(String(intValue));
-    //             setRangoMeses(intValue);
-    //         }
-    //     }
-    // };
-
-    // const handleRangoMesesChange = (event) => {
-    //     const { value } = event.target;
-    //     setRangoMeses(value);
-    //     setInputMeses(value);
-    // };
-
 
     const grabarCambios = async () => {
         // Verifica si el tipo de unidad productiva está seleccionado
@@ -194,9 +94,9 @@ export default function PersonaAsignacionUP() {
     return (
         <div className="text-start col-6 offset-3 border p-3">
             <h1 className="mt-3 text-center">Asignar Unidad Productiva:</h1>
-            <h2 className="mt-3 text-center">
+            <h3 className="mt-3 text-center">
                 {persona.apellido}, {persona.nombre} - {persona.cuil}
-            </h2>
+            </h3>
             <div className="mb-3 col-2-center">
                 <select
                     className="form-control"
@@ -219,7 +119,7 @@ export default function PersonaAsignacionUP() {
 
             {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
                 <GrupoAsociativo
-                    setGrupoAsociativoCreado={setGrupoAsociativoCreado}
+                    // setGrupoAsociativoCreado={setGrupoAsociativoCreado}
                     persona={persona} // Pasar la variable persona al componente hijo
 
                     unidadProductiva={unidadProductiva} // Pasar unidadProductiva
@@ -236,18 +136,6 @@ export default function PersonaAsignacionUP() {
                     <Formulario_UP
                         unidadProductiva={unidadProductiva}
                         setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
-                    // inputAnios={inputAnios}
-                    // handleAniosInputChange={handleAniosInputChange}
-                    // handleAniosInputBlur={handleAniosInputBlur}
-                    // rangoAnios={rangoAnios}
-                    // handleRangoAniosChange={handleRangoAniosChange}
-                    // inputMeses={inputMeses}
-                    // handleMesesInputChange={handleMesesInputChange}
-                    // handleMesesInputBlur={handleMesesInputBlur}
-                    // rangoMeses={rangoMeses}
-                    // handleRangoMesesChange={handleRangoMesesChange}
-                    // unidadProductiva={unidadProductiva}
-                    // handleFormChange={handleFormChange}
                     />
                 )}
 

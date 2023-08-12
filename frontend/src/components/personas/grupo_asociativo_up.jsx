@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
+// export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
+export default function GrupoAsociativo({ persona }) {
     const [grupos, setGrupos] = useState([]);
     const [grupoSeleccionado, setGrupoSeleccionado] = useState({});
     const [asignarHabilitado, setAsignarHabilitado] = useState(false); // Nuevo estado
@@ -18,11 +19,8 @@ export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
     }, [grupoSeleccionado]);
 
     const crearGrupo = () => {
-        //http://localhost:5173/personas/personas_lista/up/4/-1
-        setGrupoAsociativoCreado(true);
-        navegar("-1", { state: { persona } });
         // setGrupoAsociativoCreado(true);
-        // navegar("-1");
+        navegar("-1", { state: { persona } });
     };
 
     const asignarGrupo = async () => {
@@ -72,7 +70,7 @@ export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
 
     return (
         <div>
-            <h3>GRUPO ASOCIATIVO</h3>
+            <h4 className="mt-3 text-center">GRUPO ASOCIATIVO</h4>
             <div className="mb-3">
                 <label className="form-label">Listado de Grupos:</label>
                 <select className="form-control"
