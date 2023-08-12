@@ -119,13 +119,11 @@ export default function PersonaAsignacionUP() {
 
             {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
                 <GrupoAsociativo
-                    // setGrupoAsociativoCreado={setGrupoAsociativoCreado}
                     persona={persona} // Pasar la variable persona al componente hijo
-
                     unidadProductiva={unidadProductiva} // Pasar unidadProductiva
                     setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
-
                 />
+
             )}
 
             {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
