@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+import GrupoAsociativoForm from "./grupo_asociativo_form"; // Importa el componente
+
 
 // export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
-export default function GrupoAsociativo({ persona }) {
+export default function GrupoAsociativo({ persona, nombreGrupo, setNombreGrupo }) {
     const [grupos, setGrupos] = useState([]);
     const [grupoSeleccionado, setGrupoSeleccionado] = useState({});
     const [asignarHabilitado, setAsignarHabilitado] = useState(false); // Nuevo estado
+    const [mostrarFormulario, setMostrarFormulario] = useState(false); // Nuevo estado
+
+
     const navegar = useNavigate();
 
     useEffect(() => {
@@ -18,9 +24,13 @@ export default function GrupoAsociativo({ persona }) {
         setAsignarHabilitado(!!grupoSeleccionado.id);
     }, [grupoSeleccionado]);
 
+    // const crearGrupo = () => {
+    //     // setGrupoAsociativoCreado(true);
+    //     navegar("-1", { state: { persona } });
+    // };
+
     const crearGrupo = () => {
-        // setGrupoAsociativoCreado(true);
-        navegar("-1", { state: { persona } });
+        setMostrarFormulario(true);
     };
 
     const asignarGrupo = async () => {
@@ -88,11 +98,19 @@ export default function GrupoAsociativo({ persona }) {
                 </select>
             </div>
             <div className="d-flex justify-content-between"> {/* Contenedor para botones */}
+                {/* <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button> */}
                 <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button>
+
                 <button className="btn btn-primary" onClick={asignarGrupo} disabled={!asignarHabilitado}>
                     ASIGNAR A GRUPO
                 </button>
             </div>
+            {mostrarFormulario && <GrupoAsociativoForm
+                persona={persona}
+                nombreGrupo={nombreGrupo}
+                setNombreGrupo={setNombreGrupo}
+            />}
+
         </div>
     );
 }

@@ -25,8 +25,7 @@ export default function EmprendedoresLista() {
                             <th>denominacion_up</th>
                             <th>emprendimiento_formalizado</th>
                             <th>emprendimiento_activo</th>
-                            <th>cantidad_integrantes</th>
-                            <th>persona_id</th>
+                            <th>emprendedor_id</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,13 +37,12 @@ export default function EmprendedoresLista() {
                                 <td>{emprendedor.denominacion_up}</td>
                                 <td>{emprendedor.emprendimiento_formalizado ? "Sí" : "No"}</td>
                                 <td>{emprendedor.emprendimiento_activo ? "Sí" : "No"}</td>
-                                <td>{emprendedor.cantidad_integrantes}</td>
                                 <td>{emprendedor.persona_id}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                <button className="btn btn-primary">Agregar emprendedor</button>
+                {/* <button className="btn btn-primary">Agregar emprendedor</button> */}
             </div>
         </>
     );

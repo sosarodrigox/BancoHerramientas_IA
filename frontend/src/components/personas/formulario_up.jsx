@@ -117,7 +117,7 @@ export default function Formulario_UP({
                     className="form-range"
                     name="antiguedad_emprendimiento_meses"
                     min="0"
-                    max="12"
+                    max="11"
                     value={unidadProductiva.antiguedad_emprendimiento_meses}
                     onChange={handleRangoMesesChange}
                 />

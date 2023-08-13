@@ -10,6 +10,7 @@ export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
     // const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
+    const [nombreGrupo, setNombreGrupo] = useState("");
 
 
     const [unidadProductiva, setUnidadProductiva] = useState({
@@ -78,12 +79,32 @@ export default function PersonaAsignacionUP() {
                     persona.rol = "emprendedor"
                     let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`, persona);
                     console.log(resultado);
-                } else {
-                    // Realiza la solicitud para crear o actualizar la unidad productiva
+                }
+                // else {
+                //     // // Realiza la solicitud para crear o actualizar la unidad productiva
+                //     // await axios.post("http://localhost:8000/up", unidadProductiva);
+                // }
+
+                if (tipoUnidadProductiva === "GRUPO ASOCIATIVO") {
+                    // Crea el grupo asignado a la persona
+                    await axios.post("http://localhost:8000/grupos", {
+                        representante_grupo_id: persona.id,
+                        nombre_grupo: nombreGrupo,
+                    });
+
+                    // Asigna la persona a la unidad productiva
+                    unidadProductiva.denominacion_up = `UP_${nombreGrupo}_${persona.cuil}`;
+                    unidadProductiva.persona_id = persona.id;
                     await axios.post("http://localhost:8000/up", unidadProductiva);
+
+                    // Asigna a la persona el rol de emprendedor
+                    persona.rol = "representante"
+                    let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`,
+                        persona);
+                    console.log(resultado);
                 }
 
-                alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: UP_${persona.apellido}_${persona.cuil}.`);
+                alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: ${unidadProductiva.denominacion_up}.`);
                 navegar(-1);
             } catch (error) {
                 console(error.response.data.detail);
@@ -122,6 +143,8 @@ export default function PersonaAsignacionUP() {
                     persona={persona} // Pasar la variable persona al componente hijo
                     unidadProductiva={unidadProductiva} // Pasar unidadProductiva
                     setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
+                    nombreGrupo={nombreGrupo}
+                    setNombreGrupo={setNombreGrupo}
                 />
 
             )}
