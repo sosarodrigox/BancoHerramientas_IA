@@ -16,6 +16,7 @@ export default function PersonaAsignacionUP() {
     const [unidadProductiva, setUnidadProductiva] = useState({
         persona_id: 0,
         denominacion_up: "",
+        tipo_up: "",
         antiguedad_emprendimiento_meses: 0,
         antiguedad_emprendimiento_anios: 0,
         emprendimiento_formalizado: false,
@@ -45,8 +46,6 @@ export default function PersonaAsignacionUP() {
     const handleChange = (event) => {
         setTipoUnidadProductiva(event.target.value);
         // TODO: Habilitar solo si se selecciona emprendimiento individual
-
-        // Realiza cualquier acción adicional según el tipo de unidad productiva seleccionado
     };
 
     const grabarCambios = async () => {
@@ -60,8 +59,8 @@ export default function PersonaAsignacionUP() {
             alert("La persona ya tiene asignada una unidad productiva");
             return;
         } else {
-            // Agrega el tipo de unidad productiva al objeto unidad productiva
-            unidadProductiva.persona_id = persona.id;
+            // // Agrega el tipo de unidad productiva al objeto unidad productiva
+            // unidadProductiva.persona_id = persona.id;
 
             try {
                 if (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") {
@@ -73,6 +72,7 @@ export default function PersonaAsignacionUP() {
                     // Asigna la persona a la unidad productiva
                     unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
                     unidadProductiva.persona_id = persona.id;
+                    unidadProductiva.tipo_up = 'emprendedor';
                     await axios.post("http://localhost:8000/up", unidadProductiva);
 
                     // Asigna a la persona el rol de emprendedor
@@ -95,6 +95,7 @@ export default function PersonaAsignacionUP() {
                     // Asigna la persona a la unidad productiva
                     unidadProductiva.denominacion_up = `UP_${nombreGrupo}_${persona.cuil}`;
                     unidadProductiva.persona_id = persona.id;
+                    unidadProductiva.tipo_up = 'grupo';
                     await axios.post("http://localhost:8000/up", unidadProductiva);
 
                     // Asigna a la persona el rol de emprendedor

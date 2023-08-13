@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Boolean, Integer, String, ForeignKey
+from sqlalchemy import Column, Boolean, Enum, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from database import BaseBd
 
@@ -8,6 +8,8 @@ class UnidadProductivaBd(BaseBd):
     id = Column(Integer, primary_key=True)
     persona_id = Column(Integer, ForeignKey('personas.id'))
     denominacion_up = Column(String(250), nullable=False)
+    tipo_up = Column(Enum('emprendedor', 'grupo',
+                     'cooperativa', name='tipo_up_enum'), nullable=False)
     antiguedad_emprendimiento_meses = Column(Integer, nullable=False)
     antiguedad_emprendimiento_anios = Column(Integer, nullable=False)
     emprendimiento_formalizado = Column(Boolean, nullable=False)

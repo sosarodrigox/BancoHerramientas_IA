@@ -5,6 +5,7 @@ from models.personas.personas_api import Persona
 class UnidadProductivaSinId(BaseModel):
     persona_id: int
     denominacion_up: str
+    tipo_up: str
     antiguedad_emprendimiento_meses: int
     antiguedad_emprendimiento_anios: int
     emprendimiento_formalizado: bool

@@ -9,6 +9,9 @@ class UnidadesProductivasRepository():
     def get_all(self, db: Session):
         return db.execute(select(UnidadProductivaBd).order_by(UnidadProductivaBd.persona_id)).scalars().all()
 
+    def get_emprendedores(self, db: Session):
+        return db.execute(select(UnidadProductivaBd).filter(UnidadProductivaBd.tipo_up == 'emprendedor').order_by(UnidadProductivaBd.persona_id)).scalars().all()
+
     def get_by_id(self, id: int, db: Session):
         return db.execute(select(UnidadProductivaBd).filter(UnidadProductivaBd.id == id)).scalars().first()
 

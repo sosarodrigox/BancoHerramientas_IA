@@ -10,7 +10,7 @@ export default function EmprendedoresLista() {
     }, []);
 
     const getEmprendedores = async () => {
-        let resultado = await axios.get("http://localhost:8000/up");
+        let resultado = await axios.get("http://localhost:8000/up/emprendedores");
         setEmprendedores(resultado.data);
     };
 
