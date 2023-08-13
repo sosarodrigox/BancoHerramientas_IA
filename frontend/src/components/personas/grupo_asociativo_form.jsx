@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 import Formulario_UP from "./formulario_up";
 
-export default function GrupoAsociativoForm({ persona, setNombreGrupo }) {
+export default function GrupoAsociativoForm({
+    persona,
+    unidadProductiva,
+    setUnidadProductiva,
+    setNombreGrupo }) {
     const [grupo, setGrupo] = useState({});
-    const [unidadProductiva, setUnidadProductiva] = useState({
-        persona_id: 0,
-        denominacion_up: "",
-        antiguedad_emprendimiento_meses: 0,
-        antiguedad_emprendimiento_anios: 0,
-        emprendimiento_formalizado: false,
-        emprendimiento_activo: true,
-        comercializacion_descripcion: "",
-        servicios_productos: "",
-        cantidad_integrantes: 0,
-    });
-
-    // const grupo_init = {
-    //     id: -1,
-    //     nombre_grupo: "",
-    //     representante_grupo_id: persona.id,
-    // }
-
-    // const handleChange = (e) => {
-    //     setGrupo({ ...grupo, [e.target.name]: e.target.value });
-    // };
 
     const handleChange = (e) => {
         setGrupo({ ...grupo, [e.target.name]: e.target.value });
@@ -35,21 +18,6 @@ export default function GrupoAsociativoForm({ persona, setNombreGrupo }) {
     return (
         <div className="text-start ">
             <h4 className="mt-3 text-center">Datos del Grupo</h4>
-
-            {/* <div className="mb-3 col-2">
-                <label htmlFor="edId" className="form-label">
-                    ID GRUPO
-                </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="edId"
-                    name="id"
-                    value={grupo.id}
-                    onChange={handleChange}
-                    disabled
-                />
-            </div> */}
 
             <div className="mb-3 col-2">
                 <label htmlFor="edRepresentanteID" className="form-label">

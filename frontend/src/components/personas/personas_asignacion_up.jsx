@@ -45,11 +45,9 @@ export default function PersonaAsignacionUP() {
 
     const handleChange = (event) => {
         setTipoUnidadProductiva(event.target.value);
-        // TODO: Habilitar solo si se selecciona emprendimiento individual
     };
 
     const grabarCambios = async () => {
-        // Verifica si el tipo de unidad productiva está seleccionado
         if (!tipoUnidadProductiva) {
             alert("Debe seleccionar un tipo de unidad productiva");
             return;
@@ -59,23 +57,18 @@ export default function PersonaAsignacionUP() {
             alert("La persona ya tiene asignada una unidad productiva");
             return;
         } else {
-            // // Agrega el tipo de unidad productiva al objeto unidad productiva
-            // unidadProductiva.persona_id = persona.id;
 
             try {
                 if (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") {
-                    // Crea el emprendedor asignado a la persona
                     await axios.post("http://localhost:8000/emprendedores", {
                         persona_id: persona.id,
                     });
 
-                    // Asigna la persona a la unidad productiva
                     unidadProductiva.denominacion_up = `UP_${persona.apellido}_${persona.cuil}`;
                     unidadProductiva.persona_id = persona.id;
                     unidadProductiva.tipo_up = 'emprendedor';
                     await axios.post("http://localhost:8000/up", unidadProductiva);
 
-                    // Asigna a la persona el rol de emprendedor
                     persona.rol = "emprendedor"
                     let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`, persona);
                     console.log(resultado);
@@ -86,19 +79,16 @@ export default function PersonaAsignacionUP() {
                 // }
 
                 if (tipoUnidadProductiva === "GRUPO ASOCIATIVO") {
-                    // Crea el grupo asignado a la persona
                     await axios.post("http://localhost:8000/grupos", {
                         representante_grupo_id: persona.id,
                         nombre_grupo: nombreGrupo,
                     });
 
-                    // Asigna la persona a la unidad productiva
                     unidadProductiva.denominacion_up = `UP_${nombreGrupo}_${persona.cuil}`;
                     unidadProductiva.persona_id = persona.id;
                     unidadProductiva.tipo_up = 'grupo';
                     await axios.post("http://localhost:8000/up", unidadProductiva);
 
-                    // Asigna a la persona el rol de emprendedor
                     persona.rol = "representante"
                     let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`,
                         persona);
@@ -139,6 +129,15 @@ export default function PersonaAsignacionUP() {
                 <EmprendimientoIndividual persona={persona} />
             )}
 
+
+            {tipoUnidadProductiva &&
+                (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") && (
+                    <Formulario_UP
+                        unidadProductiva={unidadProductiva}
+                        setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
+                    />
+                )}
+
             {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
                 <GrupoAsociativo
                     persona={persona} // Pasar la variable persona al componente hijo
@@ -151,15 +150,6 @@ export default function PersonaAsignacionUP() {
             )}
 
             {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
-
-            {/* Mostrar el formulario solo si se ha seleccionado un tipo de unidad productiva */}
-            {tipoUnidadProductiva &&
-                (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") && (
-                    <Formulario_UP
-                        unidadProductiva={unidadProductiva}
-                        setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
-                    />
-                )}
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>

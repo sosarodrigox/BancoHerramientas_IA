@@ -6,7 +6,13 @@ import GrupoAsociativoForm from "./grupo_asociativo_form"; // Importa el compone
 
 
 // export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
-export default function GrupoAsociativo({ persona, nombreGrupo, setNombreGrupo }) {
+export default function GrupoAsociativo({
+    persona,
+    unidadProductiva,
+    setUnidadProductiva,
+    nombreGrupo,
+    setNombreGrupo
+}) {
     const [grupos, setGrupos] = useState([]);
     const [grupoSeleccionado, setGrupoSeleccionado] = useState({});
     const [asignarHabilitado, setAsignarHabilitado] = useState(false); // Nuevo estado
@@ -107,6 +113,8 @@ export default function GrupoAsociativo({ persona, nombreGrupo, setNombreGrupo }
             </div>
             {mostrarFormulario && <GrupoAsociativoForm
                 persona={persona}
+                unidadProductiva={unidadProductiva}
+                setUnidadProductiva={setUnidadProductiva}
                 nombreGrupo={nombreGrupo}
                 setNombreGrupo={setNombreGrupo}
             />}
