@@ -23,6 +23,11 @@ def get_all(db=Depends(get_db)):
     return up_repository.get_emprendedores(db)
 
 
+@up_api.get('/grupos', response_model=list[UnidadProductivaList])
+def get_all(db=Depends(get_db)):
+    return up_repository.get_grupos(db)
+
+
 @up_api.get('/{id}', response_model=UnidadProductivaList)
 def get_by_id(id: int, db=Depends(get_db)):
     up = up_repository.get_by_id(id, db)

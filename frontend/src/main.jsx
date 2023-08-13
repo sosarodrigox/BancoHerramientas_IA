@@ -10,7 +10,7 @@ import PersonaAsignacionUP from './components/personas/personas_asignacion_up'
 import GrupoAsociativoForm from './components/personas/grupo_asociativo_form'
 import Proyectos from './components/proyectos'
 import EmprendedoresLista from './components/up_emprendedores/emprendedores_lista'
-
+import GruposLista from './components/up_grupos/grupos_lista'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -26,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           </Route>
           <Route path="up" element={<UnidadesProductivas />}>
             <Route path='emprendedores' element={<EmprendedoresLista />}></Route>
+            <Route path='grupos' element={<GruposLista />}></Route>
           </Route>
           <Route path='proyectos' element={<Proyectos />}>
 
