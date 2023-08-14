@@ -9,8 +9,8 @@ import Formulario_UP from "./formulario_up";
 export default function PersonaAsignacionUP() {
     const [persona, setPersona] = useState({});
     const [tipoUnidadProductiva, setTipoUnidadProductiva] = useState("");
-    // const [grupoAsociativoCreado, setGrupoAsociativoCreado] = useState(false);
     const [nombreGrupo, setNombreGrupo] = useState("");
+    const [nombreCooperativa, setNombreCooperativa] = useState("");
 
 
     const [unidadProductiva, setUnidadProductiva] = useState({
@@ -95,6 +95,23 @@ export default function PersonaAsignacionUP() {
                     console.log(resultado);
                 }
 
+                if (tipoUnidadProductiva === "COOPERATIVA") {
+                    await axios.post("http://localhost:8000/cooperativas", {
+                        presidente_id: persona.id,
+                        nombre_cooperativa: nombreCooperativa,
+                    });
+
+                    unidadProductiva.denominacion_up = `UP_${nombreCooperativa}_${persona.cuil}`;
+                    unidadProductiva.persona_id = persona.id;
+                    unidadProductiva.tipo_up = 'cooperativa';
+                    await axios.post("http://localhost:8000/up", unidadProductiva);
+
+                    persona.rol = "presidente"
+                    let resultado = await axios.put(`http://localhost:8000/personas/${persona.id}`,
+                        persona);
+                    console.log(resultado);
+                }
+
                 alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: ${unidadProductiva.denominacion_up}.`);
                 navegar(-1);
             } catch (error) {
@@ -124,11 +141,9 @@ export default function PersonaAsignacionUP() {
                 </select>
             </div>
 
-            {/* Mostrar el componente correspondiente según el tipo de unidad productiva seleccionado */}
-            {tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" && (
+            {/* {tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" && (
                 <EmprendimientoIndividual persona={persona} />
             )}
-
 
             {tipoUnidadProductiva &&
                 (tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL") && (
@@ -136,20 +151,37 @@ export default function PersonaAsignacionUP() {
                         unidadProductiva={unidadProductiva}
                         setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
                     />
-                )}
+                )} */}
+
+            {tipoUnidadProductiva === "EMPRENDIMIENTO INDIVIDUAL" && (
+                <>
+                    <EmprendimientoIndividual persona={persona} />
+                    <Formulario_UP
+                        unidadProductiva={unidadProductiva}
+                        setUnidadProductiva={setUnidadProductiva}
+                    />
+                </>
+            )}
 
             {tipoUnidadProductiva === "GRUPO ASOCIATIVO" && (
                 <GrupoAsociativo
-                    persona={persona} // Pasar la variable persona al componente hijo
-                    unidadProductiva={unidadProductiva} // Pasar unidadProductiva
-                    setUnidadProductiva={setUnidadProductiva} // Pasar setUnidadProductiva
+                    persona={persona}
+                    unidadProductiva={unidadProductiva}
+                    setUnidadProductiva={setUnidadProductiva}
                     nombreGrupo={nombreGrupo}
                     setNombreGrupo={setNombreGrupo}
                 />
 
             )}
 
-            {tipoUnidadProductiva === "COOPERATIVA" && <Cooperativa />}
+            {tipoUnidadProductiva === "COOPERATIVA" && (<Cooperativa
+                persona={persona}
+                unidadProductiva={unidadProductiva}
+                setUnidadProductiva={setUnidadProductiva}
+                nombreCooperativa={nombreCooperativa}
+                setNombreCooperativa={setNombreCooperativa}
+            />
+            )}
 
             <div className="mb-3 text-end">
                 <button className="btn btn-primary me-1" onClick={grabarCambios}>

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
-import GrupoAsociativoForm from "./grupo_asociativo_form"; // Importa el componente
+import GrupoAsociativoForm from "./grupo_asociativo_form";
 
-
-// export default function GrupoAsociativo({ setGrupoAsociativoCreado, persona }) {
 export default function GrupoAsociativo({
     persona,
     unidadProductiva,
@@ -15,8 +12,8 @@ export default function GrupoAsociativo({
 }) {
     const [grupos, setGrupos] = useState([]);
     const [grupoSeleccionado, setGrupoSeleccionado] = useState({});
-    const [asignarHabilitado, setAsignarHabilitado] = useState(false); // Nuevo estado
-    const [mostrarFormulario, setMostrarFormulario] = useState(false); // Nuevo estado
+    const [asignarHabilitado, setAsignarHabilitado] = useState(false);
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
 
     const navegar = useNavigate();
@@ -26,14 +23,8 @@ export default function GrupoAsociativo({
     }, []);
 
     useEffect(() => {
-        // Verifica si hay un grupo seleccionado para habilitar el botón "ASIGNAR A GRUPO"
         setAsignarHabilitado(!!grupoSeleccionado.id);
     }, [grupoSeleccionado]);
-
-    // const crearGrupo = () => {
-    //     // setGrupoAsociativoCreado(true);
-    //     navegar("-1", { state: { persona } });
-    // };
 
     const crearGrupo = () => {
         setMostrarFormulario(true);
@@ -73,10 +64,9 @@ export default function GrupoAsociativo({
     };
 
     const handleChange = (e) => {
-        /* Guardar el dato de id curso */
         setGrupoSeleccionado({
             ...grupoSeleccionado,
-            id: parseInt(e.target.value), // Convertir a entero
+            id: parseInt(e.target.value),
         });
 
         if (e.target.value == -1) {
@@ -103,10 +93,8 @@ export default function GrupoAsociativo({
                     ))}
                 </select>
             </div>
-            <div className="d-flex justify-content-between"> {/* Contenedor para botones */}
-                {/* <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button> */}
+            <div className="d-flex justify-content-between">
                 <button className="btn btn-primary" onClick={crearGrupo}>CREAR GRUPO</button>
-
                 <button className="btn btn-primary" onClick={asignarGrupo} disabled={!asignarHabilitado}>
                     ASIGNAR A GRUPO
                 </button>
@@ -118,7 +106,6 @@ export default function GrupoAsociativo({
                 nombreGrupo={nombreGrupo}
                 setNombreGrupo={setNombreGrupo}
             />}
-
         </div>
     );
 }
