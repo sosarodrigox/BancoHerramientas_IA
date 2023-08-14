@@ -32,6 +32,10 @@ def get_by_id(id: int, db=Depends(get_db)):
 
 @cooperativas_api.post('', response_model=Cooperativa)
 def create(cooperativa: CooperativaSinId, db=Depends(get_db)):
+    presidente = personas_repository.get_by_id(cooperativa.presidente_id, db)
+    if presidente.rol != 'no asignado':
+        raise HTTPException(
+            status_code=400, detail="El presidente ya está asignado a otra UP")
     cooperativa = cooperativas_repository.create(cooperativa, db)
     if not cooperativa:
         raise HTTPException(
