@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CooperativaForm from "./cooperativa_form";
 
-export default function Cooperativa(
-    { persona,
-        unidadProductiva,
-        setUnidadProductiva,
-        nombreCooperativa,
-        setNombreCooperativa }
-) {
+export default function Cooperativa({
+    persona,
+    unidadProductiva,
+    setUnidadProductiva,
+    nombreCooperativa,
+    setNombreCooperativa
+}) {
     const [cooperativas, setCooperativas] = useState([]);
     const [cooperativaSeleccionada, setCooperativaSeleccionada] = useState({});
     const [asignarHabilitado, setAsignarHabilitado] = useState(false);
@@ -42,7 +42,7 @@ export default function Cooperativa(
                     "id_cooperativa": cooperativaSeleccionada.id,
                     "id_nuevo_asociado": persona.id,
                 }
-                axios.post(`http://localhost:8000/cooperativas/nuevo`, nuevoIntegrante);
+                axios.post(`http://localhost:8000/cooperativas/nuevo`, nuevoAsociado);
 
                 alert(`Mensaje: ${persona.apellido}, ${persona.nombre} a sido asignado/a como asociado de la cooperativa: ${cooperativaSeleccionada.nombre_cooperativa}`);
                 navegar(-1);
