@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from models.personas.personas_api import Persona
-from typing import List
+# from typing import List
 
 
 class GrupoSinId(BaseModel):

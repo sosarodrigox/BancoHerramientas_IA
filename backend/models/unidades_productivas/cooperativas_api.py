@@ -1,12 +1,32 @@
-# from pydantic import BaseModel
-# from models.personas.personas_api import Persona
+from pydantic import BaseModel
+from models.personas.personas_api import Persona
+# from typing import List
 
-# class CooperativaBase(BaseModel):
-#     nombre_cooperativa: str
-#     presidente: Persona
-#     secretario: Persona
-#     tesorero: Persona
-#     asociados: list[Persona] = []
 
-# class Cooperativa(CooperativaBase):
-#     id: int
+class CooperativaSinId(BaseModel):
+    nombre_cooperativa: str
+    presidente_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Cooperativa(CooperativaSinId):
+    id: int
+
+
+class CooperativaList(CooperativaSinId):
+    id: int
+    presidente_id: int
+
+
+class CreateCooperativaNuevoAsociado(BaseModel):
+    id_cooperativa: int
+    id_nuevo_asociado: int
+
+    class Config:
+        orm_mode = True
+
+
+class CooperativaNuevoAsociado(CreateCooperativaNuevoAsociado):
+    id_nuevo_asociado: int

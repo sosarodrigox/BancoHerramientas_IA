@@ -35,6 +35,10 @@ class PersonaBd(BaseBd):
     grupo = relationship(
         "IntegranteBd", cascade="all, delete", passive_deletes=True, back_populates='persona')
 
+    # Relación con AsociadosBd como asociado
+    cooperativa = relationship(
+        "AsociadoBd", cascade="all, delete", passive_deletes=True, back_populates='persona')
+
     # # Cooperativas:
     # cooperativa_presidente = relationship(
     #     'CooperativaBd', back_populates='presidente', foreign_keys=[CooperativaBd.presidente_id])

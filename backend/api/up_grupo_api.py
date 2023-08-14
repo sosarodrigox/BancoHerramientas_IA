@@ -3,7 +3,7 @@ from database import get_db
 from models.unidades_productivas.grupos_api import Grupo, GrupoSinId, GrupoList, GrupoNuevoIntegrante, CreateGrupoNuevoIntegrante
 from repository.grupos_repository import GruposRepository
 from repository.personas_repository import PersonasRepository
-from typing import List
+# from typing import List
 
 # Router:
 grupos_api = APIRouter(prefix='/grupos', tags=['Grupos'])

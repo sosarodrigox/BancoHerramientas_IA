@@ -26,8 +26,9 @@ class GruposRepository():
         if grupo and nuevo_integrante:
             # Asignamos el rol "integrante" al nuevo integrante
             nuevo_integrante.rol = 'integrante'
-            # Asignamos el grupo_id al nuevo integrante
-            nuevo_integrante.grupo_id = integrante.id_grupo
+            # TODO: Ver nuevo_integrante.grupo_id = integrante.id_grupo (no funciona)
+            # # Asignamos el grupo_id al nuevo integrante
+            # nuevo_integrante.grupo_id = integrante.id_grupo
             db.commit()
             return integrante
         else:
