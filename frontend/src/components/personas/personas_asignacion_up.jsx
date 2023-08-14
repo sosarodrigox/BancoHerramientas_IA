@@ -111,7 +111,7 @@ export default function PersonaAsignacionUP() {
                         persona);
                     console.log(resultado);
                 }
-
+                //TODO: Corregir error al asignar una unidad productiva a una persona no aparece el nombre de la unidad productiva en el alert si no "undefined"
                 alert(`La Persona: ${persona.apellido}, ${persona.nombre} a sido asignada exitosamente a la Unidad Productiva tipo: ${persona.rol} con el nombre de UP: ${unidadProductiva.denominacion_up}.`);
                 navegar(-1);
             } catch (error) {

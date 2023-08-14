@@ -6,10 +6,10 @@ export default function GruposLista() {
     const [grupos, setGrupos] = useState([]);
 
     useEffect(() => {
-        getEmprendedores();
+        getGrupos();
     }, []);
 
-    const getEmprendedores = async () => {
+    const getGrupos = async () => {
         let resultado = await axios.get("http://localhost:8000/up/grupos");
         setGrupos(resultado.data);
     };
@@ -42,7 +42,6 @@ export default function GruposLista() {
                         ))}
                     </tbody>
                 </table>
-                {/* <button className="btn btn-primary">Agregar grupo</button> */}
             </div>
         </>
     );
