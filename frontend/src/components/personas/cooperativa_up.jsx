@@ -64,13 +64,13 @@ export default function Cooperativa({
     };
 
     const handleChange = (e) => {
-        setCooperativaSeleccionada({
-            ...cooperativaSeleccionada,
-            id: parseInt(e.target.value),
-        });
+        const selectedCoopId = parseInt(e.target.value);
 
-        if (e.target.value == -1) {
+        if (selectedCoopId === -1) {
             setCooperativaSeleccionada({});
+        } else {
+            const selectedCoop = cooperativas.find((cooperativa) => cooperativa.id === selectedCoopId);
+            setCooperativaSeleccionada(selectedCoop);
         }
     };
 
@@ -82,7 +82,7 @@ export default function Cooperativa({
                 <select className="form-control"
                     id="listadoDeCooperativas"
                     name="listadoDeCooperativas"
-                    value={cooperativaSeleccionada.nombre_cooperativa}
+                    value={cooperativaSeleccionada.id || -1}
                     onChange={handleChange}
                 >
                     <option value="-1">Seleccione una cooperativa</option>

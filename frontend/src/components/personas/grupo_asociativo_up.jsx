@@ -64,13 +64,13 @@ export default function GrupoAsociativo({
     };
 
     const handleChange = (e) => {
-        setGrupoSeleccionado({
-            ...grupoSeleccionado,
-            id: parseInt(e.target.value),
-        });
+        const selectedGroupId = parseInt(e.target.value);
 
-        if (e.target.value == -1) {
+        if (selectedGroupId === -1) {
             setGrupoSeleccionado({});
+        } else {
+            const selectedGroup = grupos.find((grupo) => grupo.id === selectedGroupId);
+            setGrupoSeleccionado(selectedGroup);
         }
     };
 
@@ -82,7 +82,7 @@ export default function GrupoAsociativo({
                 <select className="form-control"
                     id="listadoDeGrupos"
                     name="listadoDeGrupos"
-                    value={grupoSeleccionado.nombre_grupo}
+                    value={grupoSeleccionado.id || -1}
                     onChange={handleChange}
                 >
                     <option value="-1">Seleccione un grupo</option>
