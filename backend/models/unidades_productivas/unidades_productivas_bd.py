@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Boolean, Enum, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from database import BaseBd
+from models.proyectos.proyectos_bd import ProyectoBd
 
 
 class UnidadProductivaBd(BaseBd):
@@ -17,5 +18,9 @@ class UnidadProductivaBd(BaseBd):
     comercializacion_descripcion = Column(String(1024), nullable=False)
     servicios_productos = Column(String(1024), nullable=False)
     cantidad_integrantes = Column(Integer, default=0)
+    proyecto_id = Column(Integer, ForeignKey('proyectos.id'), nullable=True)
 
+    # Relacion con personas
     persona = relationship("PersonaBd", back_populates="unidades_productivas")
+    # Relacion con proyectos
+    proyecto = relationship("ProyectoBd")

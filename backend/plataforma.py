@@ -5,6 +5,7 @@ from api.ubi_provincia_api import provincias_api
 from api.ubi_localidad_api import localidades_api
 from api.up_grupo_api import grupos_api
 from api.up_cooperativa_api import cooperativas_api
+from api.proyecto_api import proyectos_api
 
 from fastapi.middleware.cors import CORSMiddleware  # Error de CORS
 import database
@@ -18,6 +19,7 @@ import models.personas.personas_bd
 import models.unidades_productivas.unidades_productivas_bd
 import models.unidades_productivas.grupos_bd
 import models.unidades_productivas.cooperativas_bd
+import models.proyectos.proyectos_bd
 
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()
@@ -33,6 +35,7 @@ app.include_router(personas_api)
 app.include_router(unidades_productivas_api)
 app.include_router(grupos_api)
 app.include_router(cooperativas_api)
+app.include_router(proyectos_api)
 
 app.add_middleware(
     CORSMiddleware,
