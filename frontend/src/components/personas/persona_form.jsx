@@ -57,7 +57,7 @@ export default function PersonaForm() {
             } else {
                 let resultado = await axios.put(`http://localhost:8000/personas/${datos.id}`, datos);
                 console.log(resultado);
-                alert("Persona modificado con éxito");
+                alert("Persona modificada con éxito");
             }
             navegar(-1);
         } catch (error) {
