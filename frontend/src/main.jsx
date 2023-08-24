@@ -9,6 +9,7 @@ import PersonaForm from './components/personas/persona_form'
 import PersonaAsignacionUP from './components/personas/personas_asignacion_up'
 import GrupoAsociativoForm from './components/personas/grupo_asociativo_form'
 import Proyectos from './components/proyectos'
+import ProyectosLista from './components/proyectos/proyectos_lista'
 import EmprendedoresLista from './components/up_emprendedores/emprendedores_lista'
 import GruposLista from './components/up_grupos/grupos_lista'
 import CooperativasLista from './components/up_cooperativas/cooperativas_lista'
@@ -31,7 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='cooperativas' element={<CooperativasLista />}></Route>
           </Route>
           <Route path='proyectos' element={<Proyectos />}>
-
+            <Route path='proyectos_lista' element={<ProyectosLista />}></Route>
           </Route>
         </Route>
       </Routes>

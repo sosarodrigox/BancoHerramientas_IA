@@ -7,7 +7,6 @@ export default function Personas() {
             <ul className="nav">
                 <li className="nav-item"><NavLink to='personas_lista' className='nav-link'>Personas</NavLink></li>
             </ul>
-
             <Outlet />
         </>
     )
