@@ -24,3 +24,6 @@ class UnidadProductivaBd(BaseBd):
     persona = relationship("PersonaBd", back_populates="unidades_productivas")
     # Relacion con proyectos
     proyecto = relationship("ProyectoBd")
+    # Relacion con asignacion_equipamiento:
+    equipamiento = relationship('AsignacionEquipamientoBd', cascade="all, delete",
+                                passive_deletes=True, back_populates='unidad_productiva')
