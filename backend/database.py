@@ -9,14 +9,8 @@ load_dotenv()
 # Obtiene la variable de entorno para la URL de la base de datos
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Motor de conexión:
 engine = create_engine(DATABASE_URL, echo=True)
-
-# SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:1234@localhost/banco_de_herramientas"
-
-# # SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/instituto"
-
-# # Motor de conexión:
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 
 # Sesión para acceder a la conexión con la BD.
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
