@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+import os
 from api.up_emprendedor_api import emprendedores_api
 from api.asignacion_equipamiento_api import asignacion_equipamiento_api
 from api.unidad_productiva_api import up_api as unidades_productivas_api
@@ -25,6 +27,13 @@ import models.unidades_productivas.grupos_bd
 import models.unidades_productivas.cooperativas_bd
 import models.proyectos.proyectos_bd
 
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
+
+# Obtiene las variables de entorno para usarlas en tu aplicación
+DATABASE_URL = os.getenv("DATABASE_URL")
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+
 
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()
@@ -47,7 +56,8 @@ app.include_router(proyectos_api)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:5173'],
+    # allow_origins=['http://localhost:5173'],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
